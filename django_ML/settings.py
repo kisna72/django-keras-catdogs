@@ -140,6 +140,7 @@ django_heroku.settings(locals())
 import keras
 import tensorflow as tf
 config = tf.ConfigProto()
+#settings for GPU.
 config.gpu_options.allow_growth = True
 session = tf.Session(config=config)
 
