@@ -136,3 +136,17 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+import keras
+import tensorflow as tf
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+session = tf.Session(config=config)
+
+
+model_file = STATIC_ROOT + "/catdog/cats_dogs.h5"
+model = keras.models.load_model(model_file)
+graph = tf.get_default_graph()
+
+MODEL=model
+GRAPH=graph

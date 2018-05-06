@@ -3,6 +3,30 @@ from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Flatten, Activation
 from keras import backend as K
+import numpy
+
+def image_file_to_ndarray(full_path, width=False,height=False):
+    """converts single image to ndarray"""
+    image = Image.open(full_path)
+    if (width and height):#only resize if width and height is passed.
+        image = image.resize((width,height), Image.ANTIALIAS)
+    nd_array = numpy.array(image)
+    return nd_array#of Shape (width,height,channels)
+
+def convert_to_ndarry(cur_list):
+    """Takes a list of ndarrys for images, and converts to a len(list) dimensional ndarray."""
+    p = numpy.expand_dims(cur_list[0],0)
+    print("Shape " , p.shape)
+    for i in range(len(cur_list)):
+        nd_item = cur_list[i]
+        #print(p.shape)
+        #print(i)
+        if (i>0):
+            p = numpy.insert(p,-1,cur_list[i],0)
+            #print(p.shape)
+    #print(p.shape)
+    
+    return p
 
 class LeNet():
     def __init__(self,image_depth,image_height,image_channels,x_train,y_train):
